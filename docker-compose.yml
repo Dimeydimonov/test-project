@@ -1,0 +1,65 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./storage/logs/nginx:/var/log/nginx
+    networks:
+      - my_network
+    depends_on:
+      - php-fpm
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: docker/php-fpm.docker
+    container_name: php-fpm
+    ports:
+      - "9000:9000"
+      - "9003:9003"
+    networks:
+      - my_network
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CLIENT_HOST: host.docker.internal
+      XDEBUG_CLIENT_PORT: 9003
+      LOG_CHANNEL: daily
+      LOG_LEVEL: debug
+    volumes:
+      - ./:/var/www
+      - ./storage/logs:/var/www/storage/logs
+    depends_on:
+      - mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-lara
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

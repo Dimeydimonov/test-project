@@ -1,0 +1,30 @@
+FROM php:8.4-cli
+
+# Установка зависимостей
+RUN apt-get update && apt-get install -y \
+    libicu-dev libcurl4-openssl-dev libbz2-dev \
+    libssl-dev libfreetype6-dev libjpeg62-turbo-dev \
+    libpng-dev zlib1g-dev libzip-dev unzip git curl \
+    && docker-php-ext-install -j$(nproc) intl iconv curl bcmath bz2 gd mysqli pdo pdo_mysql zip
+
+# Копирование php.ini
+COPY docker/php/php.ini /usr/local/etc/php/
+
+# Установка Composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+
+ARG INSTALL_LARAVEL_INSTALLER=false
+
+RUN if [ ${INSTALL_LARAVEL_INSTALLER} = true ]; then \
+    # Install the Laravel Installer
+	composer global require "laravel/installer" \
+;fi
+
+
+# Export composer vendor path
+RUN echo "" >> ~/.bashrc && \
+    echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
+
+COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
+
+WORKDIR /var/www
