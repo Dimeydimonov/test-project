@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Go to the migrations directory
+cd database/migrations/
+
+# Rename the migrations to ensure correct order
+mv 2025_09_14_185834_create_artworks_table.php 2025_09_14_000001_create_artworks_table.php
+mv 2025_09_14_185904_create_categories_table.php 2025_09_14_000000_create_categories_table.php
+mv 2025_09_14_190448_create_comments_table.php 2025_09_14_000002_create_comments_table.php
+mv 2025_09_14_190648_create_likes_table.php 2025_09_14_000003_create_likes_table.php
+mv 2025_09_14_191615_create_personal_access_tokens_table.php 2025_09_14_000004_create_personal_access_tokens_table.php
+
+echo "Migration files have been renamed to ensure correct order."

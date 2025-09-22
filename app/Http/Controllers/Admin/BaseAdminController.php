@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+
+class BaseAdminController extends Controller
+{
+    /**
+     * Возвращает успешный JSON-ответ
+     *
+     * @param mixed $data
+     * @param string $message
+     * @param int $status
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function success($data = null, string $message = '', int $status = 200): JsonResponse
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+            'data' => $data
+        ], $status);
+    }
+
+    /**
+     * Возвращает JSON-ответ с ошибкой
+     *
+     * @param string $message
+     * @param int $status
+     * @param array $errors
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function error(string $message = '', int $status = 400, array $errors = []): JsonResponse
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => $message,
+            'errors' => $errors
+        ], $status);
+    }
+
+    /**
+     * Возвращает ответ для успешного удаления
+     *
+     * @param string $message
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function deleted(string $message = 'Удаление прошло успешно'): JsonResponse
+    {
+        return $this->success(null, $message, 204);
+    }
+}

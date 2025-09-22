@@ -98,6 +98,31 @@ return [
             'throttle' => 60,
         ],
     ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Email Verification
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the settings for email verification, including the
+    | expiration time for the verification link and the redirect URL after
+    | verification is complete.
+    |
+    */
+    
+    'verification' => [
+        // The number of minutes the verification link will be valid for
+        'expire' => 60,
+        
+        // The URL to redirect to after successful verification
+        'redirect' => '/home',
+        
+        // The name of the route to redirect to after successful verification
+        'redirect_route' => 'home',
+        
+        // The middleware to use for the verification routes
+        'middleware' => ['web', 'auth', 'signed', 'throttle:6,1'],
+    ],
 
     /*
     |--------------------------------------------------------------------------
