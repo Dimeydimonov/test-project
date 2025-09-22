@@ -6,17 +6,13 @@ use App\Http\Requests\BaseRequest;
 
 class LoginRequest extends BaseRequest
 {
-    /**
-     * @return bool
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
+    
     public function rules(): array
     {
         return [
@@ -26,9 +22,7 @@ class LoginRequest extends BaseRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

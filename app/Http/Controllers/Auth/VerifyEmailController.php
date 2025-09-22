@@ -13,15 +13,10 @@ use Illuminate\Support\Facades\URL;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * @var \App\Services\Interfaces\Auth\AuthServiceInterface
-     */
+    
     protected $authService;
 
-    /**
-     * @param  \App\Services\Interfaces\Auth\AuthServiceInterface  $authService
-     * @return void
-     */
+    
     public function __construct(AuthServiceInterface $authService)
     {
         $this->authService = $authService;
@@ -29,10 +24,7 @@ class VerifyEmailController extends Controller
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
-    /**
-     * @param  \Illuminate\Foundation\Auth\EmailVerificationRequest  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
+    
     public function __invoke(EmailVerificationRequest $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
@@ -54,23 +46,14 @@ class VerifyEmailController extends Controller
             : redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
+    
     protected function verified(Request $request)
     {
-        //
+        
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
+    
+    
     public function resend(Request $request)
     {
         $user = $request->user();
@@ -88,9 +71,7 @@ class VerifyEmailController extends Controller
             : back()->with('status', 'Ссылка для подтверждения отправлена на вашу электронную почту.');
     }
 
-    /**
-     * @return string
-     */
+    
     public function redirectPath()
     {
         if (method_exists($this, 'redirectTo')) {

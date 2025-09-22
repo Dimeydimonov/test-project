@@ -12,14 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
 {
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function like(Artwork $artwork): JsonResponse
     {
         try {
@@ -59,14 +52,8 @@ class LikeController extends Controller
         }
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
+    
     public function unlike(Artwork $artwork): JsonResponse
     {
         try {
@@ -102,14 +89,8 @@ class LikeController extends Controller
         }
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
+    
     public function check(Artwork $artwork): JsonResponse
     {
         try {
@@ -130,10 +111,7 @@ class LikeController extends Controller
         }
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function getLikesCount(Artwork $artwork): JsonResponse
     {
         try {
@@ -152,10 +130,7 @@ class LikeController extends Controller
         }
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function likers(Artwork $artwork): JsonResponse
     {
         try {
@@ -186,42 +161,5 @@ class LikeController extends Controller
         }
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getLikesCount(Artwork $artwork): JsonResponse
-    {
-        return response()->json([
-            'status' => 'success',
-            'likes_count' => $artwork->likes_count
-        ]);
-    }
     
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function likers(Artwork $artwork): JsonResponse
-    {
-        $this->authorize('viewLikers', $artwork);
-        
-        $likers = $artwork->likes()
-            ->with(['user' => function ($query) {
-                $query->select('id', 'name', 'avatar')
-                    ->withCount('artworks');
-            }])
-            ->latest()
-            ->paginate(10);
-            
-        return response()->json([
-            'status' => 'success',
-            'data' => $likers
-        ]);
-    }
 }

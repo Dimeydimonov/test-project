@@ -7,17 +7,13 @@ use Illuminate\Validation\Rule;
 
 class RegisterRequest extends BaseRequest
 {
-    /**
-     * @return bool
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
+    
     public function rules(): array
     {
         return [
@@ -39,9 +35,7 @@ class RegisterRequest extends BaseRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

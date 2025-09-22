@@ -7,15 +7,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
 {
-    /**
-     * @var string|null
-     */
+    
     public static $wrap = 'category';
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function toArray(Request $request): array
     {
         return [
@@ -38,10 +33,7 @@ class CategoryResource extends JsonResource
         ];
     }
     
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function with($request): array
     {
         return [

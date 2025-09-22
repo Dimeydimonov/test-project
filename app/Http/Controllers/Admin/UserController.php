@@ -10,11 +10,7 @@ use Illuminate\Validation\Rule;
 
 class UserController extends BaseAdminController
 {
-    /**
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 15);
@@ -35,11 +31,7 @@ class UserController extends BaseAdminController
         return $this->success(UserResource::collection($users));
     }
 
-    /**
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -61,23 +53,14 @@ class UserController extends BaseAdminController
         return $this->success(new UserResource($user), 'Пользователь успешно создан', 201);
     }
 
-    /**
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function show(User $user)
     {
         $user->loadCount(['artworks', 'comments']);
         return $this->success(new UserResource($user));
     }
 
-    /**
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
@@ -105,11 +88,7 @@ class UserController extends BaseAdminController
         return $this->success(new UserResource($user), 'Пользователь успешно обновлен');
     }
 
-    /**
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function destroy(User $user)
     {
         if ($user->id === auth()->id()) {
@@ -121,10 +100,7 @@ class UserController extends BaseAdminController
         return $this->deleted();
     }
 
-    /**
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function toggleBlock(User $user)
     {
         if ($user->id === auth()->id()) {

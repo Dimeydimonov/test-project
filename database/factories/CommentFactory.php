@@ -9,11 +9,7 @@ use Illuminate\Support\Str;
 
 class CommentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    
     public function definition(): array
     {
         return [
@@ -21,15 +17,13 @@ class CommentFactory extends Factory
             'user_id' => User::factory(),
             'artwork_id' => Artwork::factory(),
             'parent_id' => null,
-            'is_approved' => $this->faker->boolean(90), // 90% комментариев одобрены
+            'is_approved' => $this->faker->boolean(90), 
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => fn (array $attributes) => $this->faker->dateTimeBetween($attributes['created_at'], 'now'),
         ];
     }
 
-    /**
-     * Указать, что комментарий является ответом.
-     */
+    
     public function reply(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -37,9 +31,7 @@ class CommentFactory extends Factory
         ]);
     }
 
-    /**
-     * Указать, что комментарий не одобрен.
-     */
+    
     public function unapproved(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -47,9 +39,7 @@ class CommentFactory extends Factory
         ]);
     }
 
-    /**
-     * Указать пользователя для комментария.
-     */
+    
     public function forUser(User $user): static
     {
         return $this->state(fn (array $attributes) => [
@@ -57,9 +47,7 @@ class CommentFactory extends Factory
         ]);
     }
 
-    /**
-     * Указать произведение для комментария.
-     */
+    
     public function forArtwork(Artwork $artwork): static
     {
         return $this->state(fn (array $attributes) => [

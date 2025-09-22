@@ -1,201 +1,99 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Панель управления</h1>
-</div>
+    <div class="admin-header">
+        <h1>Панель управления</h1>
+    </div>
 
-<div class="row mb-4">
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Всего произведений
+    <div class="admin-stats">
+        <div class="stat-card primary">
+            <div class="stat-info">
+                <div class="stat-label">Всего произведений</div>
+                <div class="stat-value">{{ $stats['total_artworks'] ?? 0 }}</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-images"></i></div>
+        </div>
+        <div class="stat-card success">
+            <div class="stat-info">
+                <div class="stat-label">Опубликованных</div>
+                <div class="stat-value">{{ $stats['published_artworks'] ?? 0 }}</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+        <div class="stat-card info">
+            <div class="stat-info">
+                <div class="stat-label">Пользователей</div>
+                <div class="stat-value">{{ $stats['total_users'] ?? 0 }}</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+        </div>
+        <div class="stat-card warning">
+            <div class="stat-info">
+                <div class="stat-label">Комментарии</div>
+                <div class="stat-value">{{ $stats['total_comments'] ?? 0 }}</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-comments"></i></div>
+        </div>
+    </div>
+
+    <div class="admin-artworks">
+        <div class="artwork-section">
+            <h2>Последние произведения</h2>
+            @if($recentArtworks->count())
+                @foreach($recentArtworks as $artwork)
+                    <div class="artwork-item">
+                        <div class="artwork-thumb">
+                            @if($artwork->image_path)
+                                <img src="{{ asset('storage/' . $artwork->image_path) }}" alt="{{ $artwork->title }}">
+                            @else
+                                <div class="placeholder"><i class="fas fa-image"></i></div>
+                            @endif
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $stats['total_artworks'] ?? 0 }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-images fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Опубликованных
+                        <div class="artwork-info">
+                            <h3>{{ $artwork->title }}</h3>
+                            <small>{{ $artwork->user->name }} • {{ $artwork->created_at->diffForHumans() }}</small>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $stats['published_artworks'] ?? 0 }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Пользователей
+                        <div class="artwork-status {{ $artwork->is_available ? 'published' : 'draft' }}">
+                            {{ $artwork->is_available ? 'Опубликовано' : 'Черновик' }}
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $stats['total_users'] ?? 0 }}</div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-users fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @else
+                <p>Нет произведений для отображения.</p>
+            @endif
         </div>
-    </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Комментариев
+        <div class="artwork-section">
+            <h2>Популярные произведения</h2>
+            @if($popularArtworks->count())
+                @foreach($popularArtworks as $artwork)
+                    <div class="artwork-item">
+                        <div class="artwork-thumb">
+                            @if($artwork->image_path)
+                                <img src="{{ asset('storage/' . $artwork->image_path) }}" alt="{{ $artwork->title }}">
+                            @else
+                                <div class="placeholder"><i class="fas fa-image"></i></div>
+                            @endif
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $stats['total_comments'] ?? 0 }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Последние произведения</h6>
-            </div>
-            <div class="card-body">
-                @if($recentArtworks->count() > 0)
-                    @foreach($recentArtworks as $artwork)
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="me-3">
-                                @if($artwork->image_path)
-                                    <img src="{{ asset('storage/' . $artwork->image_path) }}" 
-                                         alt="{{ $artwork->title }}" 
-                                         class="rounded" 
-                                         style="width: 50px; height: 50px; object-fit: cover;">
-                                @else
-                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" 
-                                         style="width: 50px; height: 50px;">
-                                        <i class="fas fa-image text-muted"></i>
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">{{ $artwork->title }}</h6>
-                                <small class="text-muted">
-                                    {{ $artwork->user->name }} • {{ $artwork->created_at->diffForHumans() }}
-                                </small>
-                            </div>
-                            <div>
-                                <span class="badge bg-{{ $artwork->is_available ? 'success' : 'secondary' }}">
-                                    {{ $artwork->is_available ? 'Опубликовано' : 'Черновик' }}
-                                </span>
-                            </div>
+                        <div class="artwork-info">
+                            <h3>{{ $artwork->title }}</h3>
+                            <small>
+                                <i class="fas fa-heart text-danger"></i> {{ $artwork->likes_count }}
+                                <i class="fas fa-eye text-info"></i> {{ $artwork->views }}
+                            </small>
                         </div>
-                    @endforeach
-                @else
-                    <p class="text-muted">Нет произведений для отображения.</p>
-                @endif
-            </div>
+                    </div>
+                @endforeach
+            @else
+                <p>Нет произведений для отображения.</p>
+            @endif
         </div>
     </div>
 
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Популярные произведения</h6>
-            </div>
-            <div class="card-body">
-                @if($popularArtworks->count() > 0)
-                    @foreach($popularArtworks as $artwork)
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="me-3">
-                                @if($artwork->image_path)
-                                    <img src="{{ asset('storage/' . $artwork->image_path) }}" 
-                                         alt="{{ $artwork->title }}" 
-                                         class="rounded" 
-                                         style="width: 50px; height: 50px; object-fit: cover;">
-                                @else
-                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" 
-                                         style="width: 50px; height: 50px;">
-                                        <i class="fas fa-image text-muted"></i>
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">{{ $artwork->title }}</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-heart text-danger"></i> {{ $artwork->likes_count }}
-                                    <i class="fas fa-eye text-info ms-2"></i> {{ $artwork->views }}
-                                </small>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <p class="text-muted">Нет произведений для отображения.</p>
-                @endif
-            </div>
-        </div>
+    <div class="admin-actions">
+        <a href="/admin/artworks/create" class="btn primary"><i class="fas fa-plus"></i> Добавить произведение</a>
+        <a href="/admin/users" class="btn info"><i class="fas fa-users"></i> Управление пользователями</a>
+        <a href="/admin/artworks" class="btn secondary"><i class="fas fa-list"></i> Все произведения</a>
+        <a href="/admin/analytics" class="btn warning"><i class="fas fa-chart-bar"></i> Аналитика</a>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Быстрые действия</h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <a href="/admin/artworks/create" class="btn btn-primary btn-block">
-                            <i class="fas fa-plus me-2"></i>
-                            Добавить произведение
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="/admin/users" class="btn btn-info btn-block">
-                            <i class="fas fa-users me-2"></i>
-                            Управление пользователями
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="/admin/artworks" class="btn btn-secondary btn-block">
-                            <i class="fas fa-list me-2"></i>
-                            Все произведения
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="/admin/analytics" class="btn btn-warning btn-block">
-                            <i class="fas fa-chart-bar me-2"></i>
-                            Аналитика
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

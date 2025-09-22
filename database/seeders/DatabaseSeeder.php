@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Заполнение базы данных тестовыми данными.
-     */
+    
     public function run(): void
     {
-        // Создаем администратора, если его еще нет
+        
         $admin = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
@@ -27,7 +25,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Создаем тестового пользователя, если его еще нет
+        
         $testUser = User::firstOrCreate(
             ['email' => 'user@example.com'],
             [
@@ -37,11 +35,11 @@ class DatabaseSeeder extends Seeder
             ]
         );
         
-        // Создаем коллекцию пользователей, начиная с тестового пользователя
+        
         $users = collect([$testUser]);
         
-        // Создаем еще 5 случайных пользователей, если их меньше 5
-        if (User::count() < 7) { // 1 admin + 1 test user + 5 random users
+        
+        if (User::count() < 7) { 
             $users = $users->merge(User::factory(5)->create());
         } else {
             $users = $users->merge(User::where('email', '!=', 'admin@example.com')
@@ -50,29 +48,29 @@ class DatabaseSeeder extends Seeder
                 ->get());
         }
 
-        // Создаем несколько категорий
+        
         $categories = Category::factory(5)->create();
 
-        // Создаем произведения искусства для каждой категории
+        
         $categories->each(function ($category) use ($admin, $users) {
-            // Создаем несколько произведений для каждой категории
+            
             $artworks = Artwork::factory(rand(3, 10))
                 ->for($category)
                 ->for($users->random())
                 ->create();
 
-            // Для каждого произведения создаем комментарии
+            
             $artworks->each(function ($artwork) use ($users) {
-                // Создаем корневые комментарии (не более 3 на произведение)
-                $commentCount = min(3, $users->count() - 1); // Ensure we don't request more comments than users
+                
+                $commentCount = min(3, $users->count() - 1); 
                 $comments = Comment::factory($commentCount)
                     ->for($artwork)
                     ->for($users->random())
                     ->create();
 
-                // Для некоторых комментариев создаем ответы (не более 2 ответов на комментарий)
+                
                 $comments->take(rand(1, $comments->count()))->each(function ($comment) use ($users, $artwork) {
-                    $replyCount = min(2, $users->count() - 1); // Ensure we don't request more replies than users
+                    $replyCount = min(2, $users->count() - 1); 
                     Comment::factory($replyCount)
                         ->for($artwork)
                         ->for($users->random())
@@ -83,24 +81,24 @@ class DatabaseSeeder extends Seeder
             });
         });
 
-        // Создаем несколько избранных произведений
+        
         Artwork::inRandomOrder()->take(5)->update(['is_featured' => true]);
 
-        // Создаем лайки для произведений
+        
         $users = User::all();
         $artworks = Artwork::all();
 
-        // Каждый пользователь лайкает случайные произведения
+        
         $users->each(function ($user) use ($artworks) {
             $artworksToLike = $artworks->random(rand(5, 15));
             
             foreach ($artworksToLike as $artwork) {
-                // Пропускаем, если пользователь - автор произведения
+                
                 if ($artwork->user_id === $user->id) {
                     continue;
                 }
                 
-                // Создаем лайк с случайной датой в пределах последнего года
+                
                 $like = new \App\Models\Like([
                     'user_id' => $user->id,
                     'likeable_id' => $artwork->id,

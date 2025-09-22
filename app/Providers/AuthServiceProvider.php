@@ -9,25 +9,19 @@ use App\Services\Implementations\Auth\AuthService;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * @var array
-     */
+    
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        
         'App\Models\Like' => 'App\Policies\LikePolicy',
         'App\Models\Artwork' => 'App\Policies\ArtworkPolicy',
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $observers = [
-        // User::class => [UserObserver::class],
+        
     ];
     
-    /**
-     * Register services.
-     */
+    
     public function register(): void
     {
         $this->app->bind(
@@ -36,16 +30,12 @@ class AuthServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Bootstrap any authentication / authorization services.
-     *
-     * @return void
-     */
+    
     public function boot()
     {
         $this->registerPolicies();
         
-        // Email Verification
+        
         \Illuminate\Auth\Notifications\VerifyEmail::toMailUsing(function ($notifiable) {
             $verifyUrl = URL::temporarySignedRoute(
                 'verification.verify',

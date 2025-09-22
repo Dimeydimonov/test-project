@@ -8,11 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LikeFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    
     public function definition(): array
     {
         return [
@@ -23,9 +19,7 @@ class LikeFactory extends Factory
         ];
     }
 
-    /**
-     * Указать пользователя, который поставил лайк.
-     */
+    
     public function forUser(User $user): static
     {
         return $this->state(fn (array $attributes) => [
@@ -33,9 +27,7 @@ class LikeFactory extends Factory
         ]);
     }
 
-    /**
-     * Указать произведение, которое лайкнули.
-     */
+    
     public function forArtwork(Artwork $artwork): static
     {
         return $this->state(fn (array $attributes) => [
@@ -44,9 +36,7 @@ class LikeFactory extends Factory
         ]);
     }
 
-    /**
-     * Указать дату создания лайка.
-     */
+    
     public function createdAt($date): static
     {
         return $this->state(fn (array $attributes) => [

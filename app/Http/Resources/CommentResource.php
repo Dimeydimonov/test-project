@@ -7,15 +7,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommentResource extends JsonResource
 {
-    /**
-     * @var string|null
-     */
+    
     public static $wrap = 'comment';
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function toArray(Request $request): array
     {
         return [
@@ -29,16 +24,16 @@ class CommentResource extends JsonResource
             'updated_at_formatted' => $this->updated_at?->format('d.m.Y H:i'),
             'updated_at_human' => $this->updated_at?->diffForHumans(),
             
-            // Relationships
+            
             'user' => new UserResource($this->whenLoaded('user')),
             'replies' => self::collection($this->whenLoaded('replies')),
             'parent' => new self($this->whenLoaded('parent')),
             'artwork' => new ArtworkResource($this->whenLoaded('artwork')),
             
-            // Counts
+            
             'replies_count' => $this->whenCounted('replies', $this->replies_count),
             
-            // Additional attributes
+            
             'is_editable' => $this->when(
                 auth()->check() && 
                 (auth()->user()->can('update', $this->resource) || 
@@ -54,10 +49,7 @@ class CommentResource extends JsonResource
         ];
     }
     
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function with($request): array
     {
         return [

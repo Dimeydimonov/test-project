@@ -11,9 +11,7 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * @var array<int, string>
-     */
+    
     protected $fillable = [
         'name',
         'slug',
@@ -26,30 +24,22 @@ class Category extends Model
         'meta_keywords',
     ];
 
-    /**
-     * @var array<string, string>
-     */
+    
     protected $casts = [
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $appends = ['image_url'];
 
-    /**
-     * @return string
-     */
+    
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
-    /**
-     * @return void
-     */
+    
     protected static function boot()
     {
         parent::boot();
@@ -67,9 +57,7 @@ class Category extends Model
         });
     }
 
-    /**
-     * @return string
-     */
+    
     public function generateUniqueSlug()
     {
         $slug = Str::slug($this->name);
@@ -78,9 +66,7 @@ class Category extends Model
         return $count ? "{$slug}-{$count}" : $slug;
     }
 
-    /**
-     * @return string|null
-     */
+    
     public function getImageUrlAttribute()
     {
         return $this->image_path ? asset('storage/' . $this->image_path) : null;
@@ -91,31 +77,19 @@ class Category extends Model
         return $this->belongsToMany(Artwork::class, 'artwork_category');
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $column
-     * @param  string  $direction
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    
     public function scopeOrderByColumn($query, $column = 'order', $direction = 'asc')
     {
         return $query->orderBy($column, $direction);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $search
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', "%{$search}%")

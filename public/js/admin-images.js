@@ -1,6 +1,4 @@
-/**
- * Система управления изображениями в админ-панели
- */
+
 class ImageManager {
     constructor(artworkId) {
         this.artworkId = artworkId;
@@ -13,7 +11,7 @@ class ImageManager {
     }
 
     setupEventListeners() {
-        // Загрузка изображений
+        
         const uploadBtn = document.getElementById('upload-images-btn');
         const fileInput = document.getElementById('images-input');
         
@@ -22,14 +20,14 @@ class ImageManager {
             fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
         }
 
-        // Drag & Drop для загрузки
+        
         const dropZone = document.getElementById('images-drop-zone');
         if (dropZone) {
             dropZone.addEventListener('dragover', this.handleDragOver.bind(this));
             dropZone.addEventListener('drop', this.handleDrop.bind(this));
         }
 
-        // Делегирование событий для кнопок изображений
+        
         document.addEventListener('click', (e) => {
             if (e.target.matches('.delete-image-btn')) {
                 this.deleteImage(e.target.dataset.imageId);
@@ -71,13 +69,13 @@ class ImageManager {
     handleFileUpload(e) {
         const files = Array.from(e.target.files);
         this.uploadFiles(files);
-        e.target.value = ''; // Очищаем input
+        e.target.value = ''; 
     }
 
     async uploadFiles(files) {
         if (!files.length) return;
 
-        // Фильтруем только изображения
+        
         const imageFiles = files.filter(file => file.type.startsWith('image/'));
         
         if (imageFiles.length === 0) {
@@ -95,7 +93,7 @@ class ImageManager {
             formData.append('images[]', file);
         });
 
-        // Добавляем CSRF токен
+        
         const csrfToken = document.querySelector('meta[name="csrf-token"]');
         if (csrfToken) {
             formData.append('_token', csrfToken.getAttribute('content'));
@@ -214,18 +212,18 @@ class ImageManager {
     }
 
     updatePrimaryImageUI(primaryImageId) {
-        // Убираем класс primary у всех изображений
+        
         document.querySelectorAll('.image-item').forEach(item => {
             item.classList.remove('primary-image');
             const primaryBadge = item.querySelector('.primary-badge');
             if (primaryBadge) primaryBadge.remove();
         });
 
-        // Добавляем класс primary к выбранному изображению
+        
         const primaryItem = document.querySelector(`[data-image-id="${primaryImageId}"]`).closest('.image-item');
         primaryItem.classList.add('primary-image');
         
-        // Добавляем бейдж "Главное"
+        
         const badge = document.createElement('span');
         badge.className = 'primary-badge badge bg-primary position-absolute top-0 start-0 m-2';
         badge.textContent = 'Главное';
@@ -233,7 +231,7 @@ class ImageManager {
     }
 
     refreshImagesList() {
-        // Перезагружаем список изображений
+        
         window.location.reload();
     }
 
@@ -245,7 +243,7 @@ class ImageManager {
     }
 
     showNotification(message, type = 'info') {
-        // Создаем уведомление
+        
         const notification = document.createElement('div');
         notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
         notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
@@ -257,7 +255,7 @@ class ImageManager {
 
         document.body.appendChild(notification);
 
-        // Автоматически скрываем через 5 секунд
+        
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
@@ -266,7 +264,6 @@ class ImageManager {
     }
 }
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     const artworkIdElement = document.querySelector('[data-artwork-id]');
     if (artworkIdElement) {

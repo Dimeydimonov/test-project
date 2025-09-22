@@ -13,8 +13,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            \App\Services\Interfaces\ArtworkServiceInterface::class,
-            \App\Services\Implementations\ArtworkService::class
+            \App\Services\Interfaces\Artwork\ArtworkServiceInterface::class,
+            \App\Services\Implementations\Artwork\ArtworkService::class
         );
 
         $this->app->bind(
@@ -50,25 +50,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $tmpBase = sys_get_temp_dir() . '/katrin_gallery_storage';
-        $paths = [
-            $tmpBase,
-            $tmpBase . '/app',
-            $tmpBase . '/app/public',
-            $tmpBase . '/framework',
-            $tmpBase . '/framework/cache',
-            $tmpBase . '/framework/cache/data',
-            $tmpBase . '/framework/sessions',
-            $tmpBase . '/framework/views',
-            $tmpBase . '/logs',
-        ];
-
-        foreach ($paths as $p) {
-            if (!is_dir($p)) {
-                @mkdir($p, 0775, true);
-            }
-        }
-
-        $this->app->useStoragePath($tmpBase);
+        
+        
+        
     }
 }

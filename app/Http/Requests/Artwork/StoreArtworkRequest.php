@@ -22,9 +22,7 @@ class StoreArtworkRequest extends FormRequest
         }
     }
 
-    /**
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    
     public function rules(): array
     {
         return [
@@ -47,14 +45,12 @@ class StoreArtworkRequest extends FormRequest
                 'required',
                 'image',
                 'mimes:jpeg,png,jpg,gif,webp',
-                'max:10240' // 10MB
+                'max:10240' 
             ]
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

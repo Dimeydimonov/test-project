@@ -25,18 +25,13 @@ class AuthController extends Controller
     {
     }
 
-    /**
-     * @return \Illuminate\View\View
-     */
+    
     public function showLoginForm(): View
     {
         return view('auth.login');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -55,18 +50,13 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * @return \Illuminate\View\View
-     */
+    
     public function showRegistrationForm(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function register(Request $request)
     {
         $request->validate([
@@ -86,10 +76,7 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function logout(Request $request)
     {
         Auth::logout();
@@ -100,9 +87,7 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    /**
-     * @return \Illuminate\View\View
-     */
+    
     public function profile(): View
     {
         return view('profile.show', [
@@ -110,10 +95,7 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
@@ -131,10 +113,7 @@ class AuthController extends Controller
         return back()->with('success', 'Профиль успешно обновлен.');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function updatePassword(Request $request)
     {
         $request->validate([

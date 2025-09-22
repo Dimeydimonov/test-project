@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 
 class UpdateArtworkRequest extends FormRequest
 {
-    /**
-     * @var int|null
-     */
+    
     protected $artworkId;
 
     protected function prepareForValidation()
@@ -29,9 +27,7 @@ class UpdateArtworkRequest extends FormRequest
         return true;
     }
 
-    /**
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    
     public function rules(): array
     {
         return [
@@ -55,14 +51,12 @@ class UpdateArtworkRequest extends FormRequest
                 'sometimes',
                 'image',
                 'mimes:jpeg,png,jpg,gif,webp',
-                'max:10240' // 10MB
+                'max:10240' 
             ]
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

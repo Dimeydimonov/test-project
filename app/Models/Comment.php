@@ -12,9 +12,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array<int, string>
-     */
+    
     protected $fillable = [
         'content',
         'user_id',
@@ -23,9 +21,7 @@ class Comment extends Model
         'is_approved'
     ];
 
-    /**
-     * @var array<int, string>
-     */
+    
     protected $hidden = [
         'user_id',
         'parent_id',
@@ -34,18 +30,14 @@ class Comment extends Model
         'is_approved'
     ];
 
-    /**
-     * @var array<string, string>
-     */
+    
     protected $casts = [
         'is_approved' => 'boolean',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s'
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $appends = [
         'is_editable',
         'is_deletable'

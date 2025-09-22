@@ -1,30 +1,21 @@
-<footer class="bg-white mt-12 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="col-span-1 md:col-span-2">
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-about">
                 <h3 class="footer-heading">ArtGallery</h3>
                 <p class="footer-text">
-                    Художественная галерея, где талантливые художники со всего мира делятся своими произведениями искусства. 
+                    Художественная галерея, где талантливые художники со всего мира делятся своими произведениями искусства.
                     Откройте для себя удивительный мир творчества и вдохновения.
                 </p>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Pinterest">
-                        <i class="fab fa-pinterest"></i>
-                    </a>
+                <div class="footer-social-links">
+                    <a href="#" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer-social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer-social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer-social-link" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
                 </div>
             </div>
 
-            <!-- Навигация -->
-            <div>
+            <div class="footer-nav">
                 <h3 class="footer-heading">Навигация</h3>
                 <ul class="footer-links">
                     <li><a href="{{ route('home') }}" class="footer-link">Главная</a></li>
@@ -34,8 +25,7 @@
                 </ul>
             </div>
 
-            <!-- Поддержка -->
-            <div>
+            <div class="footer-support">
                 <h3 class="footer-heading">Поддержка</h3>
                 <ul class="footer-links">
                     <li><a href="#" class="footer-link">Помощь</a></li>
@@ -47,12 +37,8 @@
         </div>
 
         <div class="footer-bottom">
-            <p class="footer-copyright">
-                &copy; {{ date('Y') }} ArtGallery. Все права защищены.
-            </p>
-            <p class="footer-made-with">
-                Создано с <i class="fas fa-heart text-red-500"></i> для любителей искусства
-            </p>
+            <p class="footer-copyright">&copy; {{ date('Y') }} ArtGallery. Все права защищены.</p>
+            <p class="footer-made-with">Создано с <i class="fas fa-heart"></i> для любителей искусства</p>
         </div>
     </div>
 </footer>

@@ -13,9 +13,16 @@
         <div class="md:flex">
             <div class="md:w-2/3 relative">
                 <div class="relative w-full" style="padding-bottom: 100%;">
-                    <img src="{{ $artwork->getFirstMediaUrl('images', 'large') }}" 
-                         alt="{{ $artwork->title }}" 
-                         class="absolute inset-0 w-full h-full object-contain p-4">
+                    @php($img = $artwork->main_image_url)
+                    @if($img)
+                        <img src="{{ $img }}" 
+                             alt="{{ $artwork->title }}" 
+                             class="absolute inset-0 w-full h-full object-contain p-4">
+                    @else
+                        <div class="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-100">
+                            <i class="fas fa-image text-4xl text-gray-400"></i>
+                        </div>
+                    @endif
                 </div>
                 
                 <div class="absolute top-4 right-4">

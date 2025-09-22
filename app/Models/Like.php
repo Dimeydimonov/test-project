@@ -11,27 +11,21 @@ class Like extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array<int, string>
-     */
+    
     protected $fillable = [
         'user_id',
         'likeable_id',
         'likeable_type',
     ];
 
-    /**
-     * @var array<int, string>
-     */
+    
     protected $hidden = [
         'likeable_type',
         'likeable_id',
         'updated_at',
     ];
 
-    /**
-     * @var array<string, string>
-     */
+    
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',

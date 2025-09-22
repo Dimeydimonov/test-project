@@ -12,43 +12,28 @@ class ResetPassword extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
+    
     public $token;
 
-    /**
-     * @var (\Closure(mixed, string): string)|null
-     */
+    
     public static $createUrlCallback;
 
-    /**
-     * @var \Closure|null
-     */
+    
     public static $toMailCallback;
 
-    /**
-     * @param  string  $token
-     * @return void
-     */
+    
     public function __construct($token)
     {
         $this->token = $token;
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
+    
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+    
     public function toMail($notifiable)
     {
         if (static::$toMailCallback) {
@@ -58,10 +43,7 @@ class ResetPassword extends Notification implements ShouldQueue
         return $this->buildMailMessage($this->resetUrl($notifiable));
     }
 
-    /**
-     * @param  string  $url
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+    
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
@@ -72,10 +54,7 @@ class ResetPassword extends Notification implements ShouldQueue
             ->line(Lang::get('Если вы не запрашивали сброс пароля, никаких дальнейших действий не требуется.'));
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return string
-     */
+    
     protected function resetUrl($notifiable)
     {
         if (static::$createUrlCallback) {
@@ -88,19 +67,13 @@ class ResetPassword extends Notification implements ShouldQueue
         ], false));
     }
 
-    /**
-     * @param  \Closure(mixed, string): string  $callback
-     * @return void
-     */
+    
     public static function createUrlUsing($callback)
     {
         static::$createUrlCallback = $callback;
     }
 
-    /**
-     * @param  \Closure  $callback
-     * @return void
-     */
+    
     public static function toMailUsing($callback)
     {
         static::$toMailCallback = $callback;

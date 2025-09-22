@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
@@ -20,15 +18,13 @@ return new class extends Migration
             $table->boolean('is_approved')->default(true);
             $table->timestamps();
             
-            // Индексы для оптимизации запросов
+            
             $table->index(['artwork_id', 'parent_id']);
             $table->index('user_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('comments');

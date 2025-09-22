@@ -17,10 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ArtworkController extends Controller
 {
-    /**
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function index(): JsonResponse
     {
         $artworks = Artwork::with(['category', 'user', 'likes'])
@@ -33,11 +30,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     *
-     * @param  \App\Http\Requests\Artwork\StoreArtworkRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function store(StoreArtworkRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -61,11 +54,7 @@ class ArtworkController extends Controller
         ], 201);
     }
 
-    /**
-     *
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function show(Artwork $artwork): JsonResponse
     {
         return response()->json([
@@ -74,12 +63,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     *
-     * @param  \App\Http\Requests\Artwork\UpdateArtworkRequest  $request
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function update(UpdateArtworkRequest $request, Artwork $artwork): JsonResponse
     {
         $this->authorize('update', $artwork);
@@ -104,14 +88,8 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
+    
     public function destroy(Artwork $artwork): JsonResponse
     {
         $this->authorize('delete', $artwork);
@@ -129,10 +107,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function getByCategory(Category $category): JsonResponse
     {
         $artworks = $category->artworks()
@@ -147,9 +122,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function featured(): JsonResponse
     {
         $artworks = Artwork::with(['category', 'user', 'likes'])
@@ -164,10 +137,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function search(Request $request): JsonResponse
     {
         $request->validate([
@@ -189,10 +159,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function like(Artwork $artwork): JsonResponse
     {
         $user = Auth::user();
@@ -216,10 +183,7 @@ class ArtworkController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function unlike(Artwork $artwork): JsonResponse
     {
         $user = Auth::user();

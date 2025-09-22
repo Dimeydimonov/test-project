@@ -7,15 +7,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class LikeResource extends JsonResource
 {
-    /**
-     * @var string|null
-     */
+    
     public static $wrap = 'like';
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function toArray(Request $request): array
     {
         return [
@@ -29,10 +24,7 @@ class LikeResource extends JsonResource
         ];
     }
     
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function with($request): array
     {
         return [

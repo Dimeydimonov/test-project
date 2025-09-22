@@ -7,17 +7,13 @@ use Illuminate\Validation\Rules\Password;
 
 class ResetPasswordRequest extends BaseRequest
 {
-    /**
-     * @return bool
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
+    
     public function rules(): array
     {
         return [
@@ -33,9 +29,7 @@ class ResetPasswordRequest extends BaseRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

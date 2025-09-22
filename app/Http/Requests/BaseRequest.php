@@ -10,10 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class BaseRequest extends FormRequest
 {
-    /**
-     * @param Validator $validator
-     * @throws HttpResponseException
-     */
+    
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
@@ -40,13 +37,11 @@ class BaseRequest extends FormRequest
         return false;
     }
 
-    /**
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    
     public function rules(): array
     {
         return [
-            //
+            
         ];
     }
 }

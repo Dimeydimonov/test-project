@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string
-     */
+    
     public const HOME = '/home';
 
     public function boot(): void
@@ -26,11 +24,6 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
-                
-            // Подключаем маршруты админ-панели
-            Route::prefix('api/admin')
-                ->middleware(['api', 'auth:sanctum', 'admin'])
-                ->group(base_path('routes/admin.php'));
         });
     }
     protected function configureRateLimiting(): void

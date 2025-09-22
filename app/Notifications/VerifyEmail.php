@@ -14,34 +14,24 @@ class VerifyEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var \Closure|null
-     */
+    
     public static $createUrlCallback;
 
-    /**
-     * @var \Closure|null
-     */
+    
     public static $toMailCallback;
 
     public function __construct()
     {
-        //
+        
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
+    
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+    
     public function toMail($notifiable)
     {
         $verificationUrl = $this->verificationUrl($notifiable);
@@ -53,10 +43,7 @@ class VerifyEmail extends Notification implements ShouldQueue
         return $this->buildMailMessage($verificationUrl);
     }
 
-    /**
-     * @param  string  $url
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+    
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
@@ -66,10 +53,7 @@ class VerifyEmail extends Notification implements ShouldQueue
             ->line('Если вы не создавали учетную запись, никаких дальнейших действий не требуется.');
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return string
-     */
+    
     protected function verificationUrl($notifiable)
     {
         if (static::$createUrlCallback) {
@@ -86,31 +70,23 @@ class VerifyEmail extends Notification implements ShouldQueue
         );
     }
 
-    /**
-     * @param  \Closure  $callback
-     * @return void
-     */
+    
     public static function createUrlUsing($callback)
     {
         static::$createUrlCallback = $callback;
     }
 
-    /**
-     * @param  \Closure  $callback
-     * @return void
-     */
+    
     public static function toMailUsing($callback)
     {
         static::$toMailCallback = $callback;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            
         ];
     }
 }

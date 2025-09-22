@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    /**
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function index(Artwork $artwork): JsonResponse
     {
         $comments = $artwork->comments()
@@ -31,10 +28,7 @@ class CommentController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Http\Requests\Comment\StoreCommentRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function store(StoreCommentRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -50,11 +44,7 @@ class CommentController extends Controller
         ], 201);
     }
 
-    /**
-     * @param  \App\Http\Requests\Comment\StoreCommentRequest  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function update(StoreCommentRequest $request, Comment $comment): JsonResponse
     {
         $this->authorize('update', $comment);
@@ -70,10 +60,7 @@ class CommentController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function destroy(Comment $comment): JsonResponse
     {
         $this->authorize('delete', $comment);
@@ -87,10 +74,7 @@ class CommentController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
-     */
+    
     public function getReplies(Comment $comment): AnonymousResourceCollection
     {
         $replies = $comment->replies()

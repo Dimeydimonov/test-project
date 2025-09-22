@@ -16,9 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * @var array
-     */
+    
     protected $fillable = [
         'name',
         'email',
@@ -27,9 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar'
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $hidden = [
         'password',
         'remember_token',
@@ -38,18 +34,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'updated_at'
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'role' => 'string'
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $appends = [
         'photo_url'
     ];

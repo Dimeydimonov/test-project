@@ -7,17 +7,13 @@ use Illuminate\Validation\Rule;
 
 class StoreCommentRequest extends FormRequest
 {
-    /**
-     * @return bool
-     */
+    
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
+    
     public function rules()
     {
         return [
@@ -35,9 +31,7 @@ class StoreCommentRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages()
     {
         return [

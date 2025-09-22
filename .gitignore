@@ -22,3 +22,14 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+docker/mysql/
+storage/app
+storage/framework
+storage/logs
+!storage/app/public/.gitignore
+public/storage
+node_modules/
+vendor/
+.idea/
+.vscode/
+html/

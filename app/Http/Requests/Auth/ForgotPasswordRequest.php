@@ -6,17 +6,13 @@ use App\Http\Requests\BaseRequest;
 
 class ForgotPasswordRequest extends BaseRequest
 {
-    /**
-     * @return bool
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
+    
     public function rules(): array
     {
         return [
@@ -24,9 +20,7 @@ class ForgotPasswordRequest extends BaseRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

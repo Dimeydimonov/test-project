@@ -7,16 +7,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Artwork>
- */
+
 class ArtworkFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    
     public function definition(): array
     {
         $title = $this->faker->sentence(3);
@@ -31,8 +25,8 @@ class ArtworkFactory extends Factory
             'price' => $this->faker->numberBetween(1000, 100000),
             'image_path' => 'artworks/' . $this->faker->image('public/storage/artworks', 800, 1000, null, false),
             'image_alt' => $this->faker->sentence,
-            'is_available' => $this->faker->boolean(80), // 80% chance of being available
-            'is_featured' => $this->faker->boolean(20), // 20% chance of being featured
+            'is_available' => $this->faker->boolean(80), 
+            'is_featured' => $this->faker->boolean(20), 
             'category_id' => Category::factory(),
             'user_id' => User::factory(),
         ];

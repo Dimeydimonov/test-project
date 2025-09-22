@@ -22,9 +22,7 @@ class StoreCategoryRequest extends FormRequest
         }
     }
 
-    /**
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    
     public function rules(): array
     {
         return [
@@ -40,7 +38,7 @@ class StoreCategoryRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,webp',
-                'max:5120' // 5MB
+                'max:5120' 
             ],
             'order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
@@ -50,9 +48,7 @@ class StoreCategoryRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

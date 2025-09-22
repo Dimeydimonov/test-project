@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 
 class UpdateCategoryRequest extends FormRequest
 {
-    /**
-     * @var int|null
-     */
+    
     protected $categoryId;
 
     protected function prepareForValidation()
@@ -30,9 +28,7 @@ class UpdateCategoryRequest extends FormRequest
         return true;
     }
 
-    /**
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    
     public function rules(): array
     {
         return [
@@ -50,7 +46,7 @@ class UpdateCategoryRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,webp',
-                'max:5120' // 5MB
+                'max:5120' 
             ],
             'order' => 'sometimes|nullable|integer|min:0',
             'is_active' => 'sometimes|boolean',
@@ -60,9 +56,7 @@ class UpdateCategoryRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

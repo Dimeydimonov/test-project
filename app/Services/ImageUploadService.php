@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Artwork;
 use App\Models\ArtworkImage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +36,7 @@ class ImageUploadService
         
         foreach ($files as $index => $file) {
             if ($file instanceof UploadedFile && $file->isValid()) {
-                $isPrimary = $index === 0; // Первое изображение делаем главным
+                $isPrimary = $index === 0; 
                 $uploadedImages[] = $this->uploadArtworkImage($file, $artworkId, $index, $isPrimary);
             }
         }
@@ -48,6 +49,14 @@ class ImageUploadService
         $image->deleteFile();
         
         return $image->delete();
+    }
+
+    public function deleteArtworkImages(Artwork $artwork): void
+    {
+        $artwork->loadMissing('images');
+        foreach ($artwork->images as $image) {
+            $this->deleteImage($image);
+        }
     }
 
     public function updateImagesOrder(array $imageIds): void
@@ -78,7 +87,7 @@ class ImageUploadService
         if (!in_array($file->getMimeType(), $allowedMimes)) {
             $errors[] = 'Недопустимый тип файла. Разрешены только JPEG, PNG, GIF, WebP.';
         }
-		$maxSize = 10 * 1024 * 1024; // 10MB в байтах
+		$maxSize = 10 * 1024 * 1024; 
         if ($file->getSize() > $maxSize) {
             $errors[] = 'Размер файла не должен превышать 10MB.';
         }

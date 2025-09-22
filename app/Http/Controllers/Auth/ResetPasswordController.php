@@ -12,10 +12,7 @@ use Illuminate\Validation\Rules;
 
 class ResetPasswordController extends Controller
 {
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
+    
     public function showResetForm(Request $request)
     {
         $token = $request->route()->parameter('token');
@@ -25,10 +22,7 @@ class ResetPasswordController extends Controller
         ]);
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function reset(Request $request)
     {
         $request->validate([

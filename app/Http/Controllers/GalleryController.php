@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Models\Artwork;
-use App\Models\Models\Category;
-use App\Models\Models\User;
+use App\Models\Artwork;
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,19 +12,13 @@ use Illuminate\Support\Str;
 
 class GalleryController extends Controller
 {
-    /**
-     * @return \Illuminate\View\View
-     */
-    /**
-     * @return \Illuminate\View\View
-     */
-    /**
-     * @return \Illuminate\View\View
-     */
+    
+    
+    
     public function index()
     {
         try {
-            $featuredArtworks = collect(); // Пустая коллекция пока нет данных
+            $featuredArtworks = collect(); 
             $recentArtworks = collect();
             $popularArtworks = collect();
             $categories = collect();
@@ -67,14 +61,8 @@ class GalleryController extends Controller
         }
     }
 
-    /**
-     * @param  string  $slug
-     * @return \Illuminate\View\View
-     */
-    /**
-     * @param  string  $slug
-     * @return \Illuminate\View\View
-     */
+    
+    
     public function show($slug)
     {
         try {
@@ -118,10 +106,7 @@ class GalleryController extends Controller
         }
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
+    
     public function all(Request $request)
     {
         try {
@@ -166,11 +151,7 @@ class GalleryController extends Controller
         }
     }
 
-    /**
-     * @param  string  $slug
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
+    
     public function category($slug, Request $request)
     {
         try {

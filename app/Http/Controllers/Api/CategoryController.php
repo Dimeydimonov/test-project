@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function index(): JsonResponse
     {
         $categories = Category::orderBy('order')
@@ -28,10 +26,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Http\Requests\Category\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function store(StoreCategoryRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -50,10 +45,7 @@ class CategoryController extends Controller
         ], 201);
     }
 
-    /**
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function show(Category $category): JsonResponse
     {
         return response()->json([
@@ -62,11 +54,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Http\Requests\Category\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
         $validated = $request->validated();
@@ -89,14 +77,8 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\JsonResponse
-     */
-    /**
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
+    
     public function destroy(Category $category): JsonResponse
     {
         if ($category->image_url) {

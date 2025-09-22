@@ -38,7 +38,8 @@
                     </div>
                 @endif
 
-                <form action="/admin/artworks" method="POST" enctype="multipart/form-data" id="artwork-form">
+                <form action="{{ route('admin.artworks.store') }}" method="POST" enctype="multipart/form-data" id="artwork-form">
+                    @csrf
                     <input type="hidden" name="debug" value="1">
                     
                     <!-- Title -->

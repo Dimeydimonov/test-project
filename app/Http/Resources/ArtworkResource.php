@@ -7,15 +7,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArtworkResource extends JsonResource
 {
-    /**
-     * @var string|null
-     */
+    
     public static $wrap = 'artwork';
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function toArray(Request $request): array
     {
         return [
@@ -51,10 +46,7 @@ class ArtworkResource extends JsonResource
         ];
     }
     
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return array<string, mixed>
-     */
+    
     public function with($request): array
     {
         return [

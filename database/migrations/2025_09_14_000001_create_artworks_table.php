@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     public function up(): void
     {
         Schema::create('artworks', function (Blueprint $table) {
@@ -29,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            // Внешние ключи
+            
             $table->foreign('category_id')
                   ->references('id')
                   ->on('categories')
@@ -40,7 +38,7 @@ return new class extends Migration
                   ->on('users')
                   ->onDelete('cascade');
 
-            // Индексы для оптимизации запросов
+            
             $table->index('slug');
             $table->index('is_available');
             $table->index('is_featured');
@@ -49,9 +47,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('artworks');

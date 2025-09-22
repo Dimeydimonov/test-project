@@ -13,9 +13,7 @@ use App\Mail\PasswordResetMail;
 
 class AuthService implements AuthServiceInterface
 {
-    /**
-     * @inheritDoc
-     */
+    
     public function register(array $data): User
     {
         return User::create([
@@ -27,9 +25,7 @@ class AuthService implements AuthServiceInterface
         ]);
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function login(array $credentials): array
     {
         if (!Auth::attempt($credentials)) {
@@ -51,33 +47,25 @@ class AuthService implements AuthServiceInterface
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function logout(): void
     {
         Auth::user()->currentAccessToken()->delete();
     }
     
-    /**
-     * @inheritDoc
-     */
+    
     public function sendEmailVerificationNotification(User $user): void
     {
         $user->sendEmailVerificationNotification();
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function getCurrentUser()
     {
         return Auth::user();
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function updateUser(array $data): User
     {
         $user = Auth::user();
@@ -86,9 +74,7 @@ class AuthService implements AuthServiceInterface
         return $user->fresh();
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function updatePassword(string $currentPassword, string $newPassword): bool
     {
         $user = Auth::user();
@@ -101,9 +87,7 @@ class AuthService implements AuthServiceInterface
         return $user->save();
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function sendPasswordResetLink(string $email): string
     {
         $status = Password::sendResetLink(['email' => $email]);
@@ -115,9 +99,7 @@ class AuthService implements AuthServiceInterface
         return $status;
     }
 
-    /**
-     * @inheritDoc
-     */
+    
     public function resetPassword(array $data): string
     {
         $status = Password::reset(

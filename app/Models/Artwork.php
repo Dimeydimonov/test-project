@@ -16,9 +16,7 @@ class Artwork extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * @var array<int, string>
-     */
+    
 
     public function categories()
     {
@@ -40,9 +38,7 @@ class Artwork extends Model
         'user_id',
     ];
 
-    /**
-     * @var array<string, string>
-     */
+    
     protected $casts = [
         'is_available' => 'boolean',
         'is_featured' => 'boolean',
@@ -50,22 +46,16 @@ class Artwork extends Model
         'year' => 'integer',
     ];
 
-    /**
-     * @var array
-     */
+    
     protected $appends = ['image_url'];
 
-    /**
-     * @return string
-     */
+    
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
-    /**
-     * @return void
-     */
+    
     protected static function boot()
     {
         parent::boot();
@@ -83,9 +73,7 @@ class Artwork extends Model
         });
     }
 
-    /**
-     * @return string
-     */
+    
     public function generateUniqueSlug()
     {
         $slug = Str::slug($this->title);
@@ -94,9 +82,7 @@ class Artwork extends Model
         return $count ? "{$slug}-{$count}" : $slug;
     }
 
-    /**
-     * @return string|null
-     */
+    
     public function getImageUrlAttribute()
     {
         return $this->image_path ? asset('storage/' . $this->image_path) : null;
@@ -122,9 +108,7 @@ class Artwork extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    /**
-     * @return bool
-     */
+    
     public function getIsLikedAttribute(): bool
     {
         if (!auth()->check()) {
@@ -134,9 +118,7 @@ class Artwork extends Model
         return $this->likes()->where('user_id', auth()->id())->exists();
     }
 
-    /**
-     * @return int
-     */
+    
     public function getLikesCountAttribute(): int
     {
         return $this->likes()->count();
@@ -147,29 +129,19 @@ class Artwork extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    
     public function scopeAvailable($query)
     {
         return $query->where('is_available', true);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $search
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    
     public function scopeSearch($query, $search)
     {
         return $query->where('title', 'like', "%{$search}%")

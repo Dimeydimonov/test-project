@@ -7,17 +7,13 @@ use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends BaseRequest
 {
-    /**
-     * @return bool
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
+    
     public function rules(): array
     {
         $userId = auth()->id();
@@ -35,9 +31,7 @@ class UpdateProfileRequest extends BaseRequest
         ];
     }
 
-    /**
-     * @return array
-     */
+    
     public function messages(): array
     {
         return [

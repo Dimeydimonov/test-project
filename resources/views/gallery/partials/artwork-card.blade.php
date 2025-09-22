@@ -1,5 +1,5 @@
 <div class="artwork-card group">
-    <a href="/gallery/{{ $artwork->id }}" class="block relative">
+    <a href="{{ route('gallery.show', $artwork) }}" class="block relative">
         @if($artwork->is_featured)
             <span class="featured-badge">
                 <i class="fas fa-star mr-1"></i> Избранное
@@ -14,8 +14,9 @@
         </button>
 
         <div class="artwork-image-container">
-            @if($artwork->image_path)
-                <img src="{{ Storage::url($artwork->image_path) }}" 
+            @php($img = $artwork->main_image_url)
+            @if($img)
+                <img src="{{ $img }}" 
                      alt="{{ $artwork->title }}" 
                      class="artwork-image" 
                      loading="lazy">
